@@ -1,0 +1,464 @@
+/* =========================================================
+   ParkFlow — estilos
+   Tokens de design pensados para o domínio de estacionamento:
+   asfalto, faixa de cancela (amarelo/preto) e placa Mercosul.
+   ========================================================= */
+
+:root {
+  /* Cor */
+  --cor-asfalto:        #1E2124;
+  --cor-asfalto-suave:  #2B2F33;
+  --cor-canario:        #FFC94A;
+  --cor-fundo:          #EFF1F3;
+  --cor-superficie:     #FFFFFF;
+  --cor-texto:          #1E2124;
+  --cor-texto-suave:    #5B6470;
+  --cor-borda:          #D8DBDF;
+  --cor-livre:          #1C8A4B;
+  --cor-livre-fundo:    #E4F5EA;
+  --cor-ocupada:        #C43B52;
+  --cor-ocupada-fundo:  #FBE7EA;
+  --cor-foco:           #2B6FE0;
+
+  /* Tipografia */
+  --fonte-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --fonte-corpo:   'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fonte-mono:    'JetBrains Mono', 'Consolas', monospace;
+
+  /* Escala e espaçamento */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --sombra-cartao: 0 1px 2px rgba(30, 33, 36, 0.06), 0 4px 14px rgba(30, 33, 36, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte-corpo);
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--fonte-display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--cor-asfalto);
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem); }
+h2 { font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+p { margin: 0 0 1em; color: var(--cor-texto-suave); }
+
+.container {
+  max-width: 68rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* ---------- Utilitário de acessibilidade ---------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  background: var(--cor-canario);
+  color: var(--cor-asfalto);
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  z-index: 100;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+/* ---------- Faixa de cancela (elemento assinatura) ---------- */
+
+.barra-guarda {
+  height: 10px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--cor-canario) 0 18px,
+    var(--cor-asfalto) 18px 36px
+  );
+}
+
+.barra-guarda--divisor {
+  margin: 2.5rem 0;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.site-header {
+  background: var(--cor-asfalto);
+  color: #fff;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-header__brand {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--fonte-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.site-header__mark {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--cor-canario);
+  color: var(--cor-asfalto);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav li + li {
+  margin-left: 1.5rem; /* reforço para navegadores sem suporte a gap no flexbox */
+}
+
+.site-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
+  padding-block: 0.25rem;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  border-bottom-color: var(--cor-canario);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding-block: 2.25rem 1.5rem;
+  max-width: 42rem;
+}
+
+.hero p { color: var(--cor-texto-suave); font-size: 1.05rem; }
+
+/* ---------- Layout principal ---------- */
+
+.layout-principal {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .layout-principal {
+    grid-template-columns: 1.7fr 1fr;
+  }
+}
+
+.cartao {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--radius-md);
+  box-shadow: var(--sombra-cartao);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Formulário ---------- */
+
+fieldset {
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--radius-md);
+  padding: 1rem 1rem 1.25rem;
+  margin: 0 0 1.25rem;
+}
+
+legend {
+  font-family: var(--fonte-display);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cor-texto-suave);
+  padding-inline: 0.4rem;
+}
+
+.campo {
+  margin-bottom: 1rem;
+}
+
+.campo:last-child { margin-bottom: 0; }
+
+.campo label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1.5px solid var(--cor-borda);
+  border-radius: var(--radius-sm);
+}
+
+.campo input:focus,
+.campo select:focus {
+  border-color: var(--cor-foco);
+}
+
+.campo input:invalid:not(:placeholder-shown) {
+  border-color: var(--cor-ocupada);
+}
+
+.campo__ajuda {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+/* Campo de placa com referência visual à placa Mercosul */
+.campo--placa input {
+  font-family: var(--fonte-mono);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-left: 10px solid #2B6FE0;
+  padding-left: 0.9rem;
+}
+
+.acoes-form {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.botao {
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+}
+
+.botao--primario {
+  background: var(--cor-asfalto);
+  color: #fff;
+}
+
+.botao--primario:hover { background: var(--cor-asfalto-suave); }
+
+.botao--secundario {
+  background: transparent;
+  color: var(--cor-texto);
+  border-color: var(--cor-borda);
+}
+
+.botao--secundario:hover { border-color: var(--cor-texto-suave); }
+
+.mensagem-status {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 1.2em;
+  color: var(--cor-livre);
+}
+
+.mensagem-status[data-tipo="erro"] {
+  color: var(--cor-ocupada);
+}
+
+/* ---------- Resumo (aside) ---------- */
+
+.resumo-lista {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.resumo-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+}
+
+.resumo-item dt {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.resumo-item dd {
+  margin: 0;
+  font-family: var(--fonte-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.resumo-item--livre { border-color: var(--cor-livre); }
+.resumo-item--livre dd { color: var(--cor-livre); }
+
+.resumo-item--ocupada { border-color: var(--cor-ocupada); }
+.resumo-item--ocupada dd { color: var(--cor-ocupada); }
+
+/* ---------- Tabela de vagas ---------- */
+
+.tabela-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--radius-sm);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 40rem;
+  font-size: 0.92rem;
+}
+
+thead th {
+  text-align: left;
+  background: var(--cor-asfalto);
+  color: #fff;
+  font-family: var(--fonte-display);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 0.65rem 0.75rem;
+  position: sticky;
+  top: 0;
+}
+
+tbody td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--cor-borda);
+  vertical-align: middle;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+tbody tr:nth-child(even) { background: var(--cor-fundo); }
+
+td[data-coluna="placa"] {
+  font-family: var(--fonte-mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.selo-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.selo-status--livre {
+  background: var(--cor-livre-fundo);
+  color: var(--cor-livre);
+}
+
+.selo-status--ocupada {
+  background: var(--cor-ocupada-fundo);
+  color: var(--cor-ocupada);
+}
+
+.selo-status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.botao-sair {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--cor-ocupada);
+  background: transparent;
+  color: var(--cor-ocupada);
+  cursor: pointer;
+}
+
+.botao-sair:hover { background: var(--cor-ocupada-fundo); }
+
+/* ---------- Rodapé ---------- */
+
+.site-footer {
+  background: var(--cor-asfalto);
+  color: #C7CBCF;
+  margin-top: 2.5rem;
+}
+
+.site-footer__inner {
+  padding-block: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.site-footer p { color: #C7CBCF; margin: 0.2em 0; }
